@@ -6,19 +6,20 @@ const STYLE_CONSTANTS = {
   transition: (attribute: string) => `${attribute} 0.7s ease`,
 };
 
-const customProps = ["isFullscreen"];
+const customProps = ["isFullscreen", "isFullHeight"];
 const shouldForwardProp = (prop: string) =>
   !customProps.includes(prop as string);
 
 export interface IChatAIPage {
   isFullscreen: boolean;
+  isFullHeight?: boolean;
 }
 
 export const ChatAIPage = styled(Box, {
   shouldForwardProp,
-})<IChatAIPage>(({ theme, isFullscreen }) => {
+})<IChatAIPage>(({ theme, isFullscreen, isFullHeight }) => {
   return {
-    width: isFullscreen ? "100%" : "50%",
+    width: isFullscreen && !isFullHeight ? "100%" : "50%",
     backgroundColor: theme.palette.background.chat,
     height: "100%",
     position: "relative",
@@ -26,24 +27,25 @@ export const ChatAIPage = styled(Box, {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    transition: STYLE_CONSTANTS.transition("width"),
     padding: "30px 0",
+    transition: STYLE_CONSTANTS.transition("width"),
   };
 });
 
 export const ChatAIDescriptionWrapper = styled(Box, {
   shouldForwardProp,
-})<IChatAIPage>(({ isFullscreen }) => {
-  const dynamicStyle = isFullscreen
-    ? {
-        display: "flex",
-        flexFlow: "column-reverse",
-        paddingBottom: "20px",
-        height: "100%",
-      }
-    : {
-        height: "490px",
-      };
+})<IChatAIPage>(({ isFullscreen, isFullHeight }) => {
+  const dynamicStyle =
+    isFullscreen || isFullHeight
+      ? {
+          height: "100%",
+          display: "flex",
+          flexFlow: "column-reverse",
+          paddingBottom: "20px",
+        }
+      : {
+          height: "490px",
+        };
 
   return {
     width: STYLE_CONSTANTS.width,

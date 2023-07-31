@@ -12,6 +12,7 @@ const InputAI = ({
   onChange,
   endAdornment,
   placeholder,
+  ...rest
 }: IInputAI): IInputAIReturn => {
   const handleInputChange: ChangeEventHandler<
     HTMLTextAreaElement | HTMLInputElement
@@ -26,6 +27,7 @@ const InputAI = ({
       endAdornment={endAdornment}
       fullWidth
       onChange={handleInputChange}
+      {...rest}
     />
   );
 };

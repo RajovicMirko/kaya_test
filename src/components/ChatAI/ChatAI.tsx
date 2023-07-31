@@ -1,6 +1,11 @@
 import SendIcon from "@mui/icons-material/Send";
 import { Typography } from "@mui/material";
-import { ChangeEventHandler, useMemo, useState } from "react";
+import {
+  ChangeEventHandler,
+  KeyboardEventHandler,
+  useMemo,
+  useState,
+} from "react";
 import InputAI from "../Input/InputAI/InputAI";
 import {
   ChatAIDescriptionWrapper,
@@ -17,20 +22,55 @@ export type IChatAI = {};
 type IChatAIReturn = JSX.Element | null;
 
 const ChatAI = ({}: IChatAI): IChatAIReturn => {
+  const [isSubmittedForm, setIsSubmittedForm] = useState(false);
+
   const [inputValue, setInputValue] = useState("");
-  const isFullscreen = useMemo(() => !!inputValue, [inputValue]);
+  const [products, setProducts] = useState<Array<string> | null>(null);
+
+  const isFullscreen = useMemo(() => isSubmittedForm, [isSubmittedForm]);
+  const isDisplayProducts = useMemo(
+    () => !!inputValue && !!products?.length,
+    [inputValue, products]
+  );
 
   const handleInputChange: ChangeEventHandler<
     HTMLTextAreaElement | HTMLInputElement
   > = (event) => {
-    setInputValue(event?.target?.value);
+    const value = event?.target?.value;
+
+    if (value.includes("products")) {
+      setProducts(["test"]);
+    } else {
+      setProducts(null);
+    }
+
+    if (value === "") setIsSubmittedForm(false);
+
+    setInputValue(value);
+  };
+
+  const handleInputKeyDown: KeyboardEventHandler<
+    HTMLTextAreaElement | HTMLInputElement
+  > = (event) => {
+    if (event?.code === "Enter") {
+      setIsSubmittedForm(!!inputValue);
+    }
   };
 
   return (
-    <ChatAIPage isFullscreen={isFullscreen}>
-      <ChatAIDescriptionWrapper isFullscreen={isFullscreen}>
-        {isFullscreen ? (
-          "display chat component"
+    <ChatAIPage isFullscreen={isFullscreen} isFullHeight={isDisplayProducts}>
+      <ChatAIDescriptionWrapper
+        isFullscreen={isFullscreen}
+        isFullHeight={isDisplayProducts}
+      >
+        {isFullscreen || isDisplayProducts ? (
+          <div>
+            <p>display chat component</p>
+            <p>
+              type sentience with the word products to see split screen with
+              chat
+            </p>
+          </div>
         ) : (
           <>
             <ChatAILogo>Logo</ChatAILogo>
@@ -47,8 +87,11 @@ const ChatAI = ({}: IChatAI): IChatAIReturn => {
           placeholder={INPUT_PLACEHOLDER}
           endAdornment={<SendIcon />}
           onChange={handleInputChange}
+          onKeyDown={handleInputKeyDown}
         />
-        {!isFullscreen && <Typography>powered by KayaAI</Typography>}
+        {!isFullscreen && !isDisplayProducts && (
+          <Typography>powered by KayaAI</Typography>
+        )}
       </InputWrapper>
     </ChatAIPage>
   );
