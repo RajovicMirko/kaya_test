@@ -28,21 +28,21 @@ const ChatAI = ({}: IChatAI): IChatAIReturn => {
 
   return (
     <ChatAIPage isFullscreen={isFullscreen}>
-      {isFullscreen ? (
-        <ChatAIDescriptionWrapper>
-          display chat component
-        </ChatAIDescriptionWrapper>
-      ) : (
-        <ChatAIDescriptionWrapper>
-          <ChatAILogo>Logo</ChatAILogo>
+      <ChatAIDescriptionWrapper isFullscreen={isFullscreen}>
+        {isFullscreen ? (
+          "display chat component"
+        ) : (
+          <>
+            <ChatAILogo>Logo</ChatAILogo>
 
-          <ChatAITitle>{TITLE}</ChatAITitle>
+            <ChatAITitle>{TITLE}</ChatAITitle>
 
-          <ChatAISubTitle>{SUBTITLE}</ChatAISubTitle>
-        </ChatAIDescriptionWrapper>
-      )}
+            <ChatAISubTitle>{SUBTITLE}</ChatAISubTitle>
+          </>
+        )}
+      </ChatAIDescriptionWrapper>
 
-      <InputWrapper isFullscreen={isFullscreen}>
+      <InputWrapper>
         <InputAI
           placeholder={INPUT_PLACEHOLDER}
           endAdornment={<SendIcon />}
