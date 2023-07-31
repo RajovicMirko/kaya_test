@@ -1,5 +1,6 @@
 import { PropsWithChildren } from "react";
 import { CustomLayout } from "./Layout.style";
+import Main from "./Main/Main";
 import Sidebar from "./Sidebar/Sidebar";
 
 export type ILayout = PropsWithChildren & {};
@@ -10,7 +11,7 @@ const Layout = ({ children }: ILayout): ILayoutReturn => {
   return (
     <CustomLayout>
       <Sidebar />
-      {children}
+      <Main>{children}</Main>
     </CustomLayout>
   );
 };
