@@ -1,11 +1,11 @@
-import Test from "./components/Test/Test";
+import Layout from "./components/Layout/Layout";
 import MUIProvider from "./style";
 
 function App() {
   return (
     <div className="App">
       <MUIProvider>
-        <Test />
+        <Layout></Layout>
       </MUIProvider>
     </div>
   );

@@ -1,6 +1,7 @@
 import { CssBaseline, PaletteMode, Theme, ThemeProvider } from "@mui/material";
 import { PropsWithChildren, useState } from "react";
 import { MUI_MODE } from "./constants";
+import globalStyles from "./globalStyles";
 import theme, { IToggleMode } from "./theme";
 
 const MUIProvider = ({ children }: PropsWithChildren) => {
@@ -17,6 +18,7 @@ const MUIProvider = ({ children }: PropsWithChildren) => {
   return (
     <ThemeProvider theme={provide}>
       <CssBaseline />
+      {globalStyles}
       {children}
     </ThemeProvider>
   );
