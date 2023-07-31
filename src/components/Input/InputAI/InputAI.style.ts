@@ -4,7 +4,7 @@ export const CustomOutlinedInput = styled(OutlinedInput)(({ theme }) => {
   return {
     borderRadius: "100px",
     padding: "4px 10px",
-    backgroundColor: theme.palette.grey[50],
+    backgroundColor: theme.palette.background.input,
     maxWidth: "1000px",
 
     svg: {

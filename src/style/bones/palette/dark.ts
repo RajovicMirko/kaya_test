@@ -70,6 +70,8 @@ const dark: PaletteOptions = {
   background: {
     paper: "rgba(0,0,0,.5)",
     default: "rgba(0,0,0,.5)",
+    input: "rgba(0,0,0,.3)",
+    chat: "rgba(0,0,0,.5)",
   },
   action: {
     active: "rgba(0, 0, 0, 0.54)",

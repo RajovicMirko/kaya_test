@@ -1,7 +1,7 @@
 import { Box, Typography, styled } from "@mui/material";
 
 const STYLE_CONSTANTS = {
-  width: "70%",
+  width: "90%",
   maxWidth: "1200px",
   transition: (attribute: string) => `${attribute} 0.4s ease`,
 };
@@ -16,9 +16,10 @@ export interface IChatAIPage {
 
 export const ChatAIPage = styled(Box, {
   shouldForwardProp,
-})<IChatAIPage>(({ isFullscreen }) => {
+})<IChatAIPage>(({ theme, isFullscreen }) => {
   return {
     width: isFullscreen ? "100%" : "50%",
+    backgroundColor: theme.palette.background.chat,
     height: "100%",
     position: "relative",
     display: "flex",
@@ -33,20 +34,24 @@ export const ChatAIPage = styled(Box, {
 export const ChatAIDescriptionWrapper = styled(Box, {
   shouldForwardProp,
 })<IChatAIPage>(({ isFullscreen }) => {
-  const fullscreenStyle = isFullscreen
+  const dynamicStyle = isFullscreen
     ? {
         display: "flex",
         flexFlow: "column-reverse",
         paddingBottom: "20px",
+        height: "100%",
       }
-    : {};
+    : {
+        height: "490px",
+      };
+
   return {
     width: STYLE_CONSTANTS.width,
     maxWidth: STYLE_CONSTANTS.maxWidth,
-    height: isFullscreen ? "100%" : "470px",
     margin: 0,
     transition: STYLE_CONSTANTS.transition("all"),
-    ...fullscreenStyle,
+    padding: "20px 30px",
+    ...dynamicStyle,
   };
 });
 

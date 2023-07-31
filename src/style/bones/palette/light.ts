@@ -1,4 +1,5 @@
 import { PaletteOptions } from "@mui/material";
+import { grey } from "@mui/material/colors";
 import { MUI_MODE } from "src/style/constants";
 
 const light: PaletteOptions = {
@@ -70,6 +71,8 @@ const light: PaletteOptions = {
   background: {
     paper: "#fff",
     default: "#fff",
+    input: grey[50],
+    chat: "#fff",
   },
   action: {
     active: "rgba(0, 0, 0, 0.54)",
