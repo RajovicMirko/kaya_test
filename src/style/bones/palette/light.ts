@@ -71,8 +71,8 @@ const light: PaletteOptions = {
   background: {
     paper: "#fff",
     default: "#fff",
-    input: grey[50],
-    chat: "#fff",
+    input: grey[100],
+    chat: grey[50],
   },
   action: {
     active: "rgba(0, 0, 0, 0.54)",

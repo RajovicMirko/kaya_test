@@ -3,7 +3,7 @@ import { Box, Typography, styled } from "@mui/material";
 const STYLE_CONSTANTS = {
   width: "90%",
   maxWidth: "1200px",
-  transition: (attribute: string) => `${attribute} 0.4s ease`,
+  transition: (attribute: string) => `${attribute} 0.7s ease`,
 };
 
 const customProps = ["isFullscreen"];
@@ -49,8 +49,8 @@ export const ChatAIDescriptionWrapper = styled(Box, {
     width: STYLE_CONSTANTS.width,
     maxWidth: STYLE_CONSTANTS.maxWidth,
     margin: 0,
-    transition: STYLE_CONSTANTS.transition("all"),
     padding: "20px 30px",
+    transition: STYLE_CONSTANTS.transition("all"),
     ...dynamicStyle,
   };
 });
