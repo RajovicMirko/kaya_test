@@ -20,6 +20,7 @@ export const ChatTextListItemStyled = styled(Box, {
   return {
     display: "flex",
     justifyContent: "center",
+    padding: "16px 0",
     backgroundColor:
       type === "bot"
         ? theme.palette.background.input
