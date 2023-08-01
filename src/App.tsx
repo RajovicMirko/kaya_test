@@ -1,4 +1,4 @@
-import ChatAI from "./components/ChatAI/ChatAI";
+import Chat from "./components/Chat/Chat";
 import Layout from "./components/Layout/Layout";
 import MUIProvider from "./style";
 
@@ -7,7 +7,7 @@ function App() {
     <div className="App">
       <MUIProvider>
         <Layout>
-          <ChatAI />
+          <Chat />
         </Layout>
       </MUIProvider>
     </div>

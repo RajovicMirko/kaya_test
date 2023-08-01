@@ -1,6 +1,6 @@
 import { Box, Paper, styled } from "@mui/material";
 
-export const SidebarPaper = styled(Paper)(() => ({
+export const SidebarPaper = styled(Paper)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   justifyContent: "flex-end",
@@ -8,6 +8,7 @@ export const SidebarPaper = styled(Paper)(() => ({
   width: "80px",
   height: "100vh",
   borderRadius: 0,
+  zIndex: theme.zIndex.mobileStepper,
 }));
 
 export const SidebarContainer = styled(Box)(() => {

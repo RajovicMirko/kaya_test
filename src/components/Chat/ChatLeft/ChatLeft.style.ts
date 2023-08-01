@@ -1,9 +1,9 @@
-import { Box, Typography, styled } from "@mui/material";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Box, styled } from "@mui/material";
 
 const STYLE_CONSTANTS = {
   width: "90%",
   maxWidth: "1200px",
-  transition: (attribute: string) => `${attribute} 0.7s ease`,
 };
 
 const customProps = ["isFullscreen", "isFullHeight"];
@@ -11,15 +11,13 @@ const shouldForwardProp = (prop: string) =>
   !customProps.includes(prop as string);
 
 export interface IChatAIPage {
-  isFullscreen: boolean;
+  isFullscreen?: boolean;
   isFullHeight?: boolean;
 }
 
-export const ChatAIPage = styled(Box, {
-  shouldForwardProp,
-})<IChatAIPage>(({ theme, isFullscreen, isFullHeight }) => {
+export const ChatLeftPage = styled(Box)(({ theme }) => {
   return {
-    width: isFullscreen && !isFullHeight ? "100%" : "50%",
+    width: "100%",
     backgroundColor: theme.palette.background.chat,
     height: "100%",
     position: "relative",
@@ -28,13 +26,13 @@ export const ChatAIPage = styled(Box, {
     justifyContent: "center",
     alignItems: "center",
     padding: "30px 0",
-    transition: STYLE_CONSTANTS.transition("width"),
+    transition: theme.transitions.create(["width"]),
   };
 });
 
-export const ChatAIDescriptionWrapper = styled(Box, {
+export const ChatLeftContentWrapper = styled(Box, {
   shouldForwardProp,
-})<IChatAIPage>(({ isFullscreen, isFullHeight }) => {
+})<IChatAIPage>(({ theme, isFullscreen, isFullHeight }) => {
   const dynamicStyle =
     isFullscreen || isFullHeight
       ? {
@@ -52,32 +50,8 @@ export const ChatAIDescriptionWrapper = styled(Box, {
     maxWidth: STYLE_CONSTANTS.maxWidth,
     margin: 0,
     padding: "20px 30px",
-    transition: STYLE_CONSTANTS.transition("all"),
+    transition: theme.transitions.create(["all"]),
     ...dynamicStyle,
-  };
-});
-
-export const ChatAILogo = styled(Typography)(() => {
-  return {
-    fontSize: "70px",
-    marginBottom: "100px",
-  };
-});
-
-export const ChatAITitle = styled(Typography)(() => {
-  return {
-    fontSize: "100px",
-    margin: 0,
-    lineHeight: 1,
-    maxWidth: "500px",
-  };
-});
-
-export const ChatAISubTitle = styled(Typography)(() => {
-  return {
-    fontSize: "24px",
-    margin: 0,
-    lineHeight: 1,
   };
 });
 

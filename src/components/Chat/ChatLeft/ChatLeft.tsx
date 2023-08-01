@@ -6,28 +6,28 @@ import {
   useMemo,
   useState,
 } from "react";
-import InputAI from "../Input/InputAI/InputAI";
+import InputAI from "src/components/Input/InputAI/InputAI";
+import { IScreenSplitComponentProps } from "src/components/ScreenSplit/ScreenSplit";
+import ChatDescription from "../components/ChatDescription/ChatDescription";
+import ChatTextList from "../components/ChatTextList/ChatTextList";
+import { INPUT_PLACEHOLDER } from "../constants";
 import {
-  ChatAIDescriptionWrapper,
-  ChatAILogo,
-  ChatAIPage,
-  ChatAISubTitle,
-  ChatAITitle,
+  ChatLeftContentWrapper,
+  ChatLeftPage,
   InputWrapper,
-} from "./ChatAI.style";
-import { INPUT_PLACEHOLDER, SUBTITLE, TITLE } from "./constants";
+} from "./ChatLeft.style";
 
-export type IChatAI = {};
+export type IChatLeft = IScreenSplitComponentProps & {};
 
-type IChatAIReturn = JSX.Element | null;
+type IChatLeftReturn = JSX.Element | null;
 
-const ChatAI = ({}: IChatAI): IChatAIReturn => {
-  const [isSubmittedForm, setIsSubmittedForm] = useState(false);
-
+const ChatLeft = ({
+  isFullWidth,
+  setFullWidth,
+}: IChatLeft): IChatLeftReturn => {
   const [inputValue, setInputValue] = useState("");
   const [products, setProducts] = useState<Array<string> | null>(null);
 
-  const isFullscreen = useMemo(() => isSubmittedForm, [isSubmittedForm]);
   const isDisplayProducts = useMemo(
     () => !!inputValue && !!products?.length,
     [inputValue, products]
@@ -40,11 +40,11 @@ const ChatAI = ({}: IChatAI): IChatAIReturn => {
 
     if (value.includes("products")) {
       setProducts(["test"]);
+      setFullWidth(false);
     } else {
       setProducts(null);
+      setFullWidth(true);
     }
-
-    if (value === "") setIsSubmittedForm(false);
 
     setInputValue(value);
   };
@@ -53,34 +53,22 @@ const ChatAI = ({}: IChatAI): IChatAIReturn => {
     HTMLTextAreaElement | HTMLInputElement
   > = (event) => {
     if (event?.code === "Enter") {
-      setIsSubmittedForm(!!inputValue);
+      setFullWidth(!!inputValue);
     }
   };
 
   return (
-    <ChatAIPage isFullscreen={isFullscreen} isFullHeight={isDisplayProducts}>
-      <ChatAIDescriptionWrapper
-        isFullscreen={isFullscreen}
+    <ChatLeftPage>
+      <ChatLeftContentWrapper
+        isFullscreen={isFullWidth}
         isFullHeight={isDisplayProducts}
       >
-        {isFullscreen || isDisplayProducts ? (
-          <div>
-            <p>display chat component</p>
-            <p>
-              type sentience with the word products to see split screen with
-              chat
-            </p>
-          </div>
+        {isFullWidth || isDisplayProducts ? (
+          <ChatTextList />
         ) : (
-          <>
-            <ChatAILogo>Logo</ChatAILogo>
-
-            <ChatAITitle>{TITLE}</ChatAITitle>
-
-            <ChatAISubTitle>{SUBTITLE}</ChatAISubTitle>
-          </>
+          <ChatDescription />
         )}
-      </ChatAIDescriptionWrapper>
+      </ChatLeftContentWrapper>
 
       <InputWrapper>
         <InputAI
@@ -89,12 +77,12 @@ const ChatAI = ({}: IChatAI): IChatAIReturn => {
           onChange={handleInputChange}
           onKeyDown={handleInputKeyDown}
         />
-        {!isFullscreen && !isDisplayProducts && (
+        {!isFullWidth && !isDisplayProducts && (
           <Typography>powered by KayaAI</Typography>
         )}
       </InputWrapper>
-    </ChatAIPage>
+    </ChatLeftPage>
   );
 };
 
-export default ChatAI;
+export default ChatLeft;
