@@ -1,20 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { Typography } from "@mui/material";
 import { IScreenSplitComponentProps } from "src/components/ScreenSplit/ScreenSplit";
+import useChat from "src/context/ChatContext";
 import ChatImage from "../components/ChatImage/ChatImage";
 
 export type IChatRight = IScreenSplitComponentProps & {};
 
 type IChatRightReturn = JSX.Element | null;
 
-const ChatRight = ({
-  isFullWidth,
-  setFullWidth,
-}: IChatRight): IChatRightReturn => {
-  const isProducts = false;
-  const isProductDescription = false;
+const ChatRight = ({}: IChatRight): IChatRightReturn => {
+  const { isProducts, isProductDescription } = useChat();
 
-  if (isProducts) return <div>Products list</div>;
-  if (isProductDescription) return <div>Products description</div>;
+  if (isProducts) return <Typography variant="h2">Products list</Typography>;
+  if (isProductDescription)
+    return <Typography variant="h2">Product description</Typography>;
 
   return <ChatImage />;
 };

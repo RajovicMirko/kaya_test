@@ -3,11 +3,12 @@ import { Typography } from "@mui/material";
 import {
   ChangeEventHandler,
   KeyboardEventHandler,
-  useMemo,
+  useEffect,
   useState,
 } from "react";
 import InputAI from "src/components/Input/InputAI/InputAI";
 import { IScreenSplitComponentProps } from "src/components/ScreenSplit/ScreenSplit";
+import useChat from "src/context/ChatContext";
 import ChatDescription from "../components/ChatDescription/ChatDescription";
 import ChatTextList from "../components/ChatTextList/ChatTextList";
 import { INPUT_PLACEHOLDER } from "../constants";
@@ -25,46 +26,71 @@ const ChatLeft = ({
   isFullWidth,
   setFullWidth,
 }: IChatLeft): IChatLeftReturn => {
-  const [inputValue, setInputValue] = useState("");
-  const [products, setProducts] = useState<Array<string> | null>(null);
+  const {
+    conversation,
+    setConversation,
+    setProducts,
+    setSelectedProduct,
+    isConversation,
+    isProducts,
+    isProductDescription,
+  } = useChat();
 
-  const isDisplayProducts = useMemo(
-    () => !!inputValue && !!products?.length,
-    [inputValue, products]
-  );
+  const [inputValue, setInputValue] = useState("");
 
   const handleInputChange: ChangeEventHandler<
     HTMLTextAreaElement | HTMLInputElement
   > = (event) => {
-    const value = event?.target?.value;
-
-    if (value.includes("products")) {
-      setProducts(["test"]);
-      setFullWidth(false);
-    } else {
-      setProducts(null);
-      setFullWidth(true);
-    }
-
-    setInputValue(value);
+    setInputValue(event?.target?.value);
   };
 
   const handleInputKeyDown: KeyboardEventHandler<
     HTMLTextAreaElement | HTMLInputElement
   > = (event) => {
     if (event?.code === "Enter") {
-      setFullWidth(!!inputValue);
+      const tmpInputValue = inputValue;
+
+      if (inputValue) {
+        setConversation((prevState: Array<string>) => {
+          const tmpConversation = [...prevState, inputValue];
+          return [...tmpConversation, `answer on question "${inputValue}"`];
+        });
+        setInputValue("");
+      } else {
+        setConversation([]);
+      }
+
+      if (tmpInputValue.includes("products")) {
+        setProducts(["test"]);
+      } else {
+        setProducts([]);
+      }
+
+      if (tmpInputValue.includes("product description")) {
+        setSelectedProduct({ test: "test" });
+      } else {
+        setSelectedProduct(null);
+      }
+
+      if (tmpInputValue.includes("clear products")) {
+        setProducts([]);
+        setSelectedProduct(null);
+      }
     }
   };
+
+  useEffect(() => {
+    setFullWidth(isConversation && !isProducts && !isProductDescription);
+  }, [isConversation, isProducts, isProductDescription]);
 
   return (
     <ChatLeftPage>
       <ChatLeftContentWrapper
         isFullscreen={isFullWidth}
-        isFullHeight={isDisplayProducts}
+        isFullHeight={isConversation && (isProducts || isProductDescription)}
       >
-        {isFullWidth || isDisplayProducts ? (
-          <ChatTextList />
+        {isConversation ? (
+          <ChatTextList conversation={conversation} />
         ) : (
           <ChatDescription />
         )}
@@ -76,10 +102,9 @@ const ChatLeft = ({
           endAdornment={<SendIcon />}
           onChange={handleInputChange}
           onKeyDown={handleInputKeyDown}
+          value={inputValue}
         />
-        {!isFullWidth && !isDisplayProducts && (
-          <Typography>powered by KayaAI</Typography>
-        )}
+        {!isConversation && <Typography>powered by KayaAI</Typography>}
       </InputWrapper>
     </ChatLeftPage>
   );
