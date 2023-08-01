@@ -1,4 +1,6 @@
+import { useEffect, useRef } from "react";
 import { IChatContext } from "src/context/ChatContext";
+import { ChatTextListStyle } from "./ChatTextList.style";
 import ChatTextListItem from "./ChatTextListItem/ChatTextListItem";
 
 export type IChatTextList = {
@@ -8,8 +10,27 @@ export type IChatTextList = {
 type IChatTextListReturn = JSX.Element | null;
 
 const ChatTextList = ({ conversation }: IChatTextList): IChatTextListReturn => {
+  const refChatList = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    // scroll to bottom of the list on change
+    setTimeout(() => {
+      if (refChatList?.current) {
+        if (
+          refChatList?.current?.scrollHeight >=
+          refChatList?.current?.offsetHeight
+        ) {
+          refChatList.current.scrollTo({
+            top: refChatList?.current?.scrollHeight,
+            behavior: "smooth",
+          });
+        }
+      }
+    }, 10);
+  }, [conversation]);
+
   return (
-    <div style={{ overflow: "hidden", overflowY: "auto" }}>
+    <ChatTextListStyle ref={refChatList}>
       <p>**** display chat component ****</p>
       <p>
         **** type &quot;products&quot; - to see split screen with products
@@ -28,7 +49,7 @@ const ChatTextList = ({ conversation }: IChatTextList): IChatTextListReturn => {
       {conversation?.map((item) => {
         return <ChatTextListItem key={item.id} {...item} />;
       })}
-    </div>
+    </ChatTextListStyle>
   );
 };
 

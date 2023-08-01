@@ -73,7 +73,7 @@ const ChatLeft = ({
           return [
             ...tmpConversation,
             {
-              id: prevState?.length?.toString(),
+              id: prevState?.length?.toString() + 1,
               type: "bot",
               text: `ANSWER ON QUESTION: "${inputValue}"`,
             } as IConversation,
@@ -86,14 +86,10 @@ const ChatLeft = ({
 
       if (tmpInputValue.includes("products")) {
         setProducts(["test"]);
-      } else {
-        setProducts([]);
       }
 
       if (tmpInputValue.includes("product description")) {
         setSelectedProduct({ test: "test" });
-      } else {
-        setSelectedProduct(null);
       }
 
       if (tmpInputValue.includes("clear products")) {
@@ -127,6 +123,7 @@ const ChatLeft = ({
           onChange={handleInputChange}
           onKeyDown={handleInputKeyDown}
           value={inputValue}
+          autoFocus
         />
         {<Typography>powered by KayaAI</Typography>}
       </InputWrapper>

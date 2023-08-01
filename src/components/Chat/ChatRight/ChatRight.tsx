@@ -11,8 +11,9 @@ type IChatRightReturn = JSX.Element | null;
 const ChatRight = ({}: IChatRight): IChatRightReturn => {
   const { isProducts, isProductDescription } = useChat();
 
-  if (isProducts) return <Typography variant="h2">Products list</Typography>;
-  if (isProductDescription)
+  if (isProducts && !isProductDescription)
+    return <Typography variant="h2">Products list</Typography>;
+  if (isProducts && isProductDescription)
     return <Typography variant="h2">Product description</Typography>;
 
   return <ChatImage />;
