@@ -59,7 +59,7 @@ export const ScreenSplitColumn = styled(Box)(({ theme }) => {
     position: "absolute",
     height: "100%",
     top: 0,
-    transition: theme.transitions.create(["all"]),
+    transition: theme.transitions.create(["all"], { duration: 700 }),
   };
 });
 
