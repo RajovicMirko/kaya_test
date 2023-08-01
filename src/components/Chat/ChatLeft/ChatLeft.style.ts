@@ -4,6 +4,7 @@ import { Box, styled } from "@mui/material";
 const STYLE_CONSTANTS = {
   width: "90%",
   maxWidth: "1200px",
+  inputHeight: "108px",
 };
 
 const customProps = ["isFullscreen", "isFullHeight"];
@@ -17,15 +18,15 @@ export interface IChatAIPage {
 
 export const ChatLeftPage = styled(Box)(({ theme }) => {
   return {
-    width: "100%",
-    backgroundColor: theme.palette.background.chat,
-    height: "100%",
     position: "relative",
+    height: "100vh",
+    maxHeight: "100vh",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    padding: "30px 0",
+    overflow: "hidden",
+    backgroundColor: theme.palette.background.chat,
     transition: theme.transitions.create(["width"]),
   };
 });
@@ -36,21 +37,21 @@ export const ChatLeftContentWrapper = styled(Box, {
   const dynamicStyle =
     isFullscreen || isFullHeight
       ? {
-          height: "100%",
           display: "flex",
           flexFlow: "column-reverse",
-          paddingBottom: "20px",
+          maxHeight: `calc(100vh - ${STYLE_CONSTANTS.inputHeight})`,
         }
       : {
-          height: "490px",
+          maxHeight: "450px",
         };
 
   return {
+    height: "100%",
     width: STYLE_CONSTANTS.width,
     maxWidth: STYLE_CONSTANTS.maxWidth,
     margin: 0,
-    padding: "20px 30px",
-    transition: theme.transitions.create(["all"]),
+    padding: "0 30px",
+    transition: theme.transitions.create(["all"], { duration: 1000 }),
     ...dynamicStyle,
   };
 });
@@ -62,6 +63,8 @@ export const InputWrapper = styled(Box)(({ theme }) => {
     display: "flex",
     flexFlow: "column",
     justifyContent: "center",
+    height: STYLE_CONSTANTS.inputHeight,
+    padding: "30px 0",
     p: {
       alignSelf: "flex-end",
       margin: "10px 18px 0",

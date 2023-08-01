@@ -47,6 +47,13 @@ const ChatLeft = ({
   const handleInputKeyDown: KeyboardEventHandler<
     HTMLTextAreaElement | HTMLInputElement
   > = (event) => {
+    if (event?.code === "Escape") {
+      setInputValue("");
+      setConversation([]);
+      setProducts([]);
+      setSelectedProduct(null);
+    }
+
     if (event?.code === "Enter") {
       const tmpInputValue = inputValue;
 
