@@ -37,8 +37,9 @@ export const ChatLeftContentWrapper = styled(Box, {
   const dynamicStyle =
     isFullscreen || isFullHeight
       ? {
-          display: "flex",
           flexFlow: "column-reverse",
+          justifyContent: "flex-start",
+          alignItems: "stretch",
           maxHeight: `calc(100vh - ${CHAT_INPUT_HEIGHT} - (${CHAT_INPUT_MARGIN}) - ${CHAT_POWERED_BY_KAYA_HEIGHT})`,
         }
       : {
@@ -48,6 +49,10 @@ export const ChatLeftContentWrapper = styled(Box, {
   return {
     height: "100%",
     width: "100%",
+    display: "flex",
+    flexFlow: "column",
+    justifyContent: "center",
+    alignItems: "center",
     margin: 0,
     transition: theme.transitions.create(["all"], { duration: 1000 }),
     ...dynamicStyle,

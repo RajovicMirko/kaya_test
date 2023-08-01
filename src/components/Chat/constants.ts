@@ -1,5 +1,5 @@
 export const INPUT_PLACEHOLDER = "Type something to explore with Carter Lumber";
-export const TITLE = "HOW CAN I HELP?";
+export const TITLE = "How can I help?";
 export const SUBTITLE = "Your AI Prodesk for construction";
 
 export const CHAT_MAX_WIDTH = "800px";
