@@ -8,13 +8,25 @@ import {
   useState,
 } from "react";
 
+export enum IConversationType {
+  client = "client",
+  bot = "bot",
+}
+export type IConversation = {
+  id: string;
+  type: IConversationType;
+  text: string;
+};
+
+export type IProduct = any;
+
 export type IChatContext = {
-  conversation: Array<any>;
-  setConversation: Dispatch<SetStateAction<any>>;
-  products: Array<any>;
-  setProducts: Dispatch<SetStateAction<any>>;
+  conversation: Array<IConversation>;
+  setConversation: Dispatch<SetStateAction<IConversation[]>>;
+  products: Array<IProduct>;
+  setProducts: Dispatch<SetStateAction<IProduct[]>>;
   selectedProduct: object | null;
-  setSelectedProduct: Dispatch<SetStateAction<any>>;
+  setSelectedProduct: Dispatch<SetStateAction<IProduct>>;
   isConversation: boolean;
   isProducts: boolean;
   isProductDescription: boolean;
@@ -45,9 +57,9 @@ const useChat = () => {
 export type IChatProvider = PropsWithChildren & {};
 
 export const ChatProvider = ({ children }: IChatProvider) => {
-  const [conversation, setConversation] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [conversation, setConversation] = useState<Array<IConversation>>([]);
+  const [products, setProducts] = useState<Array<IProduct>>([]);
+  const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null);
 
   const isConversation = useMemo(() => !!conversation?.length, [conversation]);
 

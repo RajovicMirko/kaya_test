@@ -1,4 +1,5 @@
 import { IChatContext } from "src/context/ChatContext";
+import ChatTextListItem from "./ChatTextListItem/ChatTextListItem";
 
 export type IChatTextList = {
   conversation: IChatContext["conversation"];
@@ -24,8 +25,8 @@ const ChatTextList = ({ conversation }: IChatTextList): IChatTextListReturn => {
       </p>
       <p>**** hit &quot;enter key&quot; on empty input to reset all ****</p>
       <p>**** hit &quot;escape key&quot; on input to reset all ****</p>
-      {conversation?.map((text) => {
-        return <p key={text}>{text}</p>;
+      {conversation?.map((item) => {
+        return <ChatTextListItem key={item.id} {...item} />;
       })}
     </div>
   );

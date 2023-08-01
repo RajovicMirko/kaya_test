@@ -1,4 +1,10 @@
-import { Typography, styled } from "@mui/material";
+import { Box, Typography, styled } from "@mui/material";
+
+export const ChatDescriptionWrapper = styled(Box)(({ theme }) => {
+  return {
+    ...theme.mixins.chatInnerComponentPaddingBig,
+  };
+});
 
 export const ChatDescriptionLogo = styled(Typography)(() => {
   return {

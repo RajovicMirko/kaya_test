@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, styled } from "@mui/material";
-
-const STYLE_CONSTANTS = {
-  width: "90%",
-  maxWidth: "1200px",
-  inputHeight: "108px",
-};
+import {
+  CHAT_INPUT_HEIGHT,
+  CHAT_INPUT_MARGIN,
+  CHAT_MAX_WIDTH,
+  CHAT_POWERED_BY_KAYA_HEIGHT,
+} from "../constants";
 
 const customProps = ["isFullscreen", "isFullHeight"];
 const shouldForwardProp = (prop: string) =>
@@ -39,18 +39,16 @@ export const ChatLeftContentWrapper = styled(Box, {
       ? {
           display: "flex",
           flexFlow: "column-reverse",
-          maxHeight: `calc(100vh - ${STYLE_CONSTANTS.inputHeight})`,
+          maxHeight: `calc(100vh - ${CHAT_INPUT_HEIGHT} - (${CHAT_INPUT_MARGIN}) - ${CHAT_POWERED_BY_KAYA_HEIGHT})`,
         }
       : {
-          maxHeight: "450px",
+          maxHeight: "460px",
         };
 
   return {
     height: "100%",
-    width: STYLE_CONSTANTS.width,
-    maxWidth: STYLE_CONSTANTS.maxWidth,
+    width: "100%",
     margin: 0,
-    padding: "0 30px",
     transition: theme.transitions.create(["all"], { duration: 1000 }),
     ...dynamicStyle,
   };
@@ -58,15 +56,17 @@ export const ChatLeftContentWrapper = styled(Box, {
 
 export const InputWrapper = styled(Box)(({ theme }) => {
   return {
-    width: STYLE_CONSTANTS.width,
-    maxWidth: STYLE_CONSTANTS.maxWidth,
+    width: "100%",
+    maxWidth: CHAT_MAX_WIDTH,
+    height: CHAT_INPUT_HEIGHT,
     display: "flex",
     flexFlow: "column",
     justifyContent: "center",
-    height: STYLE_CONSTANTS.inputHeight,
-    padding: "30px 0",
+    margin: `${CHAT_INPUT_MARGIN} 0`,
+    ...theme.mixins.chatInnerComponentPaddingSmall,
     p: {
       alignSelf: "flex-end",
+      fontSize: "14px",
       margin: "10px 18px 0",
       color: theme.palette.grey[500],
     },

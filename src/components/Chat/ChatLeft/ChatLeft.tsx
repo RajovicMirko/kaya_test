@@ -8,7 +8,10 @@ import {
 } from "react";
 import InputAI from "src/components/Input/InputAI/InputAI";
 import { IScreenSplitComponentProps } from "src/components/ScreenSplit/ScreenSplit";
-import useChat from "src/context/ChatContext";
+import useChat, {
+  IConversation,
+  IConversationType,
+} from "src/context/ChatContext";
 import ChatDescription from "../components/ChatDescription/ChatDescription";
 import ChatTextList from "../components/ChatTextList/ChatTextList";
 import { INPUT_PLACEHOLDER } from "../constants";
@@ -58,9 +61,23 @@ const ChatLeft = ({
       const tmpInputValue = inputValue;
 
       if (inputValue) {
-        setConversation((prevState: Array<string>) => {
-          const tmpConversation = [...prevState, inputValue];
-          return [...tmpConversation, `answer on question "${inputValue}"`];
+        setConversation((prevState) => {
+          const tmpConversation = [
+            ...prevState,
+            {
+              id: prevState?.length?.toString(),
+              type: IConversationType.client,
+              text: inputValue,
+            },
+          ];
+          return [
+            ...tmpConversation,
+            {
+              id: prevState?.length?.toString(),
+              type: "bot",
+              text: `ANSWER ON QUESTION: "${inputValue}"`,
+            } as IConversation,
+          ];
         });
         setInputValue("");
       } else {
@@ -111,7 +128,7 @@ const ChatLeft = ({
           onKeyDown={handleInputKeyDown}
           value={inputValue}
         />
-        {!isConversation && <Typography>powered by KayaAI</Typography>}
+        {<Typography>powered by KayaAI</Typography>}
       </InputWrapper>
     </ChatLeftPage>
   );
