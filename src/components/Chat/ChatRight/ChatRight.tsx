@@ -9,16 +9,14 @@ export type IChatRight = IScreenSplitComponentProps & {};
 type IChatRightReturn = JSX.Element | null;
 
 const ChatRight = ({}: IChatRight): IChatRightReturn => {
-  const { isConversation, isProducts, isProductDescription } = useChat();
+  const { isProducts, isProductDescription } = useChat();
 
   if (isProducts && !isProductDescription) return <ProductsList />;
 
   if (isProductDescription)
     return <Typography variant="h2">Product description</Typography>;
 
-  if (!isConversation) return <ChatImage />;
-
-  return null;
+  return <ChatImage />;
 };
 
 export default ChatRight;

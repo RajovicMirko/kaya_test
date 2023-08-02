@@ -1,8 +1,9 @@
+import { LayoutGroup } from "framer-motion";
 import { ComponentType, Dispatch, useState } from "react";
 import {
-  ScreenSplitColumnLeft,
-  ScreenSplitColumnRight,
+  ScreenSplitColumn,
   ScreenSplitStyled,
+  getScreenSplitColumnAnimation,
 } from "./ScreenSplit.style";
 
 export type IScreenSplitComponentProps = {
@@ -25,29 +26,35 @@ const ScreenSplit = ({
   const [isRightFullWidth, setRightFullWidth] = useState(false);
 
   return (
-    <ScreenSplitStyled>
-      <ScreenSplitColumnLeft
-        isLeftFull={isLeftFullWidth}
-        isRightFull={isRightFullWidth}
-      >
-        <LeftComponent
-          isFullWidth={isLeftFullWidth}
-          setFullWidth={setLeftFullWidth}
-        />
-      </ScreenSplitColumnLeft>
-
-      {!!RightComponent && (
-        <ScreenSplitColumnRight
-          isLeftFull={isLeftFullWidth}
-          isRightFull={isRightFullWidth}
+    <LayoutGroup>
+      <ScreenSplitStyled>
+        <ScreenSplitColumn
+          animate={getScreenSplitColumnAnimation(
+            isLeftFullWidth,
+            isRightFullWidth
+          )}
         >
-          <RightComponent
-            isFullWidth={isRightFullWidth}
-            setFullWidth={setRightFullWidth}
+          <LeftComponent
+            isFullWidth={isLeftFullWidth}
+            setFullWidth={setLeftFullWidth}
           />
-        </ScreenSplitColumnRight>
-      )}
-    </ScreenSplitStyled>
+        </ScreenSplitColumn>
+
+        {!!RightComponent && (
+          <ScreenSplitColumn
+            animate={getScreenSplitColumnAnimation(
+              isRightFullWidth,
+              isLeftFullWidth
+            )}
+          >
+            <RightComponent
+              isFullWidth={isRightFullWidth}
+              setFullWidth={setRightFullWidth}
+            />
+          </ScreenSplitColumn>
+        )}
+      </ScreenSplitStyled>
+    </LayoutGroup>
   );
 };
 

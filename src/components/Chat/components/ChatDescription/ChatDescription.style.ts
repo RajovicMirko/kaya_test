@@ -1,10 +1,11 @@
 import { Box, Typography, styled } from "@mui/material";
-import { CHAT_MAX_WIDTH } from "../../constants";
+import { ChatCoordinates, getChatCoordinates } from "../../constants";
 
 export const ChatDescriptionWrapper = styled(Box)(({ theme }) => {
   return {
     width: "100%",
-    maxWidth: CHAT_MAX_WIDTH,
+    maxWidth: getChatCoordinates(ChatCoordinates.maxWidth).toPx(),
+    height: "100%",
     ...theme.mixins.chatInnerComponentPaddingBig,
   };
 });

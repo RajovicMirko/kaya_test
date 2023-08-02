@@ -2,7 +2,30 @@ export const INPUT_PLACEHOLDER = "Type something to explore with Carter Lumber";
 export const TITLE = "How can I help?";
 export const SUBTITLE = "Your AI Prodesk for construction";
 
-export const CHAT_MAX_WIDTH = "800px";
-export const CHAT_INPUT_HEIGHT = "84px";
-export const CHAT_INPUT_MARGIN = "20px";
-export const CHAT_POWERED_BY_KAYA_HEIGHT = "22px";
+export enum ChatCoordinates {
+  maxWidth = "maxWidth",
+  inputHeight = "inputHeight",
+  inputMargin = "inputMargin",
+  inputSubtextHeight = "inputSubtextHeight",
+}
+
+const CHAT_COORDINATES: { [key in ChatCoordinates]: number } = {
+  [ChatCoordinates.maxWidth]: 800,
+  [ChatCoordinates.inputHeight]: 84,
+  [ChatCoordinates.inputMargin]: 20,
+  [ChatCoordinates.inputSubtextHeight]: 22,
+};
+
+type GetChatCoordinates = {
+  toPx(): string;
+};
+
+export const getChatCoordinates = (
+  key: ChatCoordinates
+): number & GetChatCoordinates => {
+  const value = CHAT_COORDINATES[key];
+
+  const toPx = (): string => value + "px";
+
+  return Object.assign(value, { toPx });
+};

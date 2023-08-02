@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import SendIcon from "@mui/icons-material/Send";
 import { Typography } from "@mui/material";
 import { KeyboardEventHandler, useEffect, useRef } from "react";
@@ -14,6 +15,7 @@ import {
   ChatLeftContentWrapper,
   ChatLeftPage,
   InputWrapper,
+  getChatLeftContentWrapperAnimation,
 } from "./ChatLeft.style";
 
 export type IChatLeft = IScreenSplitComponentProps & {};
@@ -98,8 +100,13 @@ const ChatLeft = ({
   return (
     <ChatLeftPage>
       <ChatLeftContentWrapper
-        isFullscreen={isFullWidth}
-        isFullHeight={isConversation && (isProducts || isProductDescription)}
+        animate={getChatLeftContentWrapperAnimation(
+          isFullWidth,
+          isConversation && (isProducts || isProductDescription)
+        )}
+        transition={{
+          duration: 0.4,
+        }}
       >
         {isConversation ? (
           <ChatTextList conversation={conversation} />
