@@ -1,4 +1,5 @@
 import {
+  Duration as MuiDuration,
   Mixins as MuiMixins,
   Theme as MuiTheme,
   ThemeOptions as MuiThemeOptions,
@@ -24,5 +25,8 @@ declare module "@mui/material/styles" {
   interface Mixins extends MuiMixins {
     chatInnerComponentPaddingBig: CSSProperties | undefined;
     chatInnerComponentPaddingSmall: CSSProperties | undefined;
+  }
+  interface Duration extends MuiDuration {
+    splitScreen: number;
   }
 }

@@ -3,6 +3,7 @@ import components from "./bones/components";
 import mixins from "./bones/mixins";
 import darkPalette from "./bones/palette/dark";
 import lightPalette from "./bones/palette/light";
+import transitions from "./bones/transitions";
 import { MUI_MODE } from "./constants";
 
 export type IToggleMode = () => void;
@@ -16,8 +17,8 @@ const theme: ITheme = ({ mode, toggleMode }) => {
     mixins: mixins,
     components: components,
     palette: mode === MUI_MODE.light ? lightPalette : darkPalette,
+    transitions: transitions,
     //   shadows?: Shadows;
-    //   transitions?: TransitionsOptions;
     //   typography?: TypographyOptions | ((palette: Palette) => TypographyOptions);
     //   zIndex?: ZIndexOptions;
 

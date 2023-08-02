@@ -62,7 +62,7 @@ export const ScreenSplitColumn = styled(Box)(({ theme }) => {
     transition: theme.transitions.create(
       ["width", "z-index", "left", "right"],
       {
-        duration: 700,
+        duration: theme.transitions.duration.splitScreen,
       }
     ),
   };

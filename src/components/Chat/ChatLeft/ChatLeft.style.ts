@@ -51,10 +51,12 @@ export const ChatLeftContentWrapper = styled(Box, {
     width: "100%",
     display: "flex",
     flexFlow: "column",
-    justifyContent: "center",
     alignItems: "center",
     margin: 0,
-    transition: theme.transitions.create(["all"], { duration: 1000 }),
+    transition: theme.transitions.create(["max-height"], {
+      duration: theme.transitions.duration.splitScreen,
+      delay: theme.transitions.duration.shortest,
+    }),
     ...dynamicStyle,
   };
 });

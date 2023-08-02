@@ -1,11 +1,6 @@
 import SendIcon from "@mui/icons-material/Send";
 import { Typography } from "@mui/material";
-import {
-  ChangeEventHandler,
-  KeyboardEventHandler,
-  useEffect,
-  useState,
-} from "react";
+import { KeyboardEventHandler, useEffect, useRef } from "react";
 import InputAI from "src/components/Input/InputAI/InputAI";
 import { IScreenSplitComponentProps } from "src/components/ScreenSplit/ScreenSplit";
 import useChat, {
@@ -39,35 +34,31 @@ const ChatLeft = ({
     isProductDescription,
   } = useChat();
 
-  const [inputValue, setInputValue] = useState("");
-
-  const handleInputChange: ChangeEventHandler<
-    HTMLTextAreaElement | HTMLInputElement
-  > = (event) => {
-    setInputValue(event?.target?.value);
-  };
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleInputKeyDown: KeyboardEventHandler<
     HTMLTextAreaElement | HTMLInputElement
   > = (event) => {
+    if (!inputRef?.current) return;
+
     if (event?.code === "Escape") {
-      setInputValue("");
+      inputRef.current.value = "";
       setConversation([]);
       setProducts([]);
       setSelectedProduct(null);
     }
 
     if (event?.code === "Enter") {
-      const tmpInputValue = inputValue;
+      const tmpInputValue = inputRef?.current?.value;
 
-      if (inputValue) {
+      if (tmpInputValue) {
         setConversation((prevState) => {
           const tmpConversation = [
             ...prevState,
             {
               id: prevState?.length?.toString(),
               type: IConversationType.client,
-              text: inputValue,
+              text: tmpInputValue,
             },
           ];
           return [
@@ -75,11 +66,12 @@ const ChatLeft = ({
             {
               id: prevState?.length?.toString() + 1,
               type: "bot",
-              text: `ANSWER ON QUESTION: "${inputValue}"`,
+              text: `ANSWER ON QUESTION: "${tmpInputValue}"`,
             } as IConversation,
           ];
         });
-        setInputValue("");
+
+        inputRef.current.value = "";
       } else {
         setConversation([]);
       }
@@ -118,12 +110,11 @@ const ChatLeft = ({
 
       <InputWrapper>
         <InputAI
+          inputRef={inputRef}
+          autoFocus
           placeholder={INPUT_PLACEHOLDER}
           endAdornment={<SendIcon />}
-          onChange={handleInputChange}
           onKeyDown={handleInputKeyDown}
-          value={inputValue}
-          autoFocus
         />
         {<Typography>powered by KayaAI</Typography>}
       </InputWrapper>
