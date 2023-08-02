@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, styled } from "@mui/material";
 import { motion } from "framer-motion";
 import { ChatCoordinates, getChatCoordinates } from "../constants";

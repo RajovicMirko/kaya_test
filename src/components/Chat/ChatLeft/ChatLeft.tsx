@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import SendIcon from "@mui/icons-material/Send";
 import { Typography } from "@mui/material";
 import { KeyboardEventHandler, useEffect, useRef } from "react";
