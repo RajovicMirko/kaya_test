@@ -54,24 +54,34 @@ const ChatLeft = ({
       const tmpInputValue = inputRef?.current?.value;
 
       if (tmpInputValue) {
-        setConversation((prevState) => {
-          const tmpConversation = [
-            ...prevState,
+        const tmpConversation = [
+          ...conversation,
+          {
+            id: conversation?.length?.toString(),
+            type: IConversationType.client,
+            text: tmpInputValue,
+          },
+          {
+            id: (conversation?.length + 1).toString(),
+            type: IConversationType.loading,
+            text: "",
+          },
+        ];
+        setConversation([...tmpConversation]);
+
+        setTimeout(() => {
+          const newConversation = [...tmpConversation];
+          const replacingConversation = newConversation.pop() as IConversation;
+
+          setConversation([
+            ...newConversation,
             {
-              id: prevState?.length?.toString(),
-              type: IConversationType.client,
-              text: tmpInputValue,
-            },
-          ];
-          return [
-            ...tmpConversation,
-            {
-              id: prevState?.length?.toString() + 1,
-              type: "bot",
+              id: replacingConversation.id,
+              type: IConversationType.bot,
               text: `ANSWER ON QUESTION: "${tmpInputValue}"`,
-            } as IConversation,
-          ];
-        });
+            },
+          ]);
+        }, 2000);
 
         inputRef.current.value = "";
       } else {

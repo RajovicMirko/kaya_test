@@ -1,4 +1,5 @@
 import { Box, styled } from "@mui/material";
+import { motion } from "framer-motion";
 import {
   ChatCoordinates,
   getChatCoordinates,
@@ -14,21 +15,59 @@ const customProps = ["type"];
 const shouldForwardProp = (prop: string) =>
   !customProps.includes(prop as string);
 
+const botTypes = [IConversationType.bot, IConversationType.loading];
+
 export interface IChatTextListItem {
-  type?: IConversationType;
+  type: IConversationType;
 }
 
-export const ChatTextListItemStyled = styled(Box, {
+export const getChatTextListItemStyledInitial = ({
+  type,
+}: IChatTextListItem) => {
+  return botTypes.includes(type)
+    ? {
+        opacity: 0,
+        scale: 0.7,
+      }
+    : {
+        scale: 0.7,
+      };
+};
+export const getChatTextListItemStyledAnimate = ({
+  type,
+}: IChatTextListItem) => {
+  return botTypes.includes(type)
+    ? {
+        opacity: 1,
+        scale: 1,
+      }
+    : {
+        scale: 1,
+      };
+};
+export const getChatTextListItemStyledTransition = ({
+  type,
+}: IChatTextListItem) => {
+  return botTypes.includes(type)
+    ? {
+        delay: 0.2,
+        duration: 0.4,
+      }
+    : {
+        duration: 0.2,
+      };
+};
+
+export const ChatTextListItemStyled = styled(motion.div, {
   shouldForwardProp,
 })<IChatTextListItem>(({ theme, type }) => {
   return {
     display: "flex",
     justifyContent: "center",
     padding: "16px 0",
-    backgroundColor:
-      type === "bot"
-        ? theme.palette.background.input
-        : theme.palette.background.default,
+    backgroundColor: botTypes.includes(type)
+      ? theme.palette.background.input
+      : theme.palette.background.default,
   };
 });
 

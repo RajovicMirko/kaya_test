@@ -11,6 +11,7 @@ import {
 export enum IConversationType {
   client = "client",
   bot = "bot",
+  loading = "loading",
 }
 export type IConversation = {
   id: string;

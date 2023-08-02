@@ -26,7 +26,7 @@ const ChatTextList = ({ conversation }: IChatTextList): IChatTextListReturn => {
           });
         }
       }
-    }, 10);
+    }, 200);
   }, [conversation]);
 
   return (
