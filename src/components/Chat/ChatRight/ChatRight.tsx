@@ -11,7 +11,7 @@ export type IChatRight = IScreenSplitComponentProps & {};
 type IChatRightReturn = JSX.Element | null;
 
 const ChatRight = ({}: IChatRight): IChatRightReturn => {
-  const { isProducts, isProductDescription } = useChat();
+  const { isConversation, isProducts, isProductDescription } = useChat();
 
   if (isProducts && !isProductDescription)
     return (
@@ -31,61 +31,27 @@ const ChatRight = ({}: IChatRight): IChatRightReturn => {
             overflowY: "visible",
           }}
         >
-          <ProductCard
-            image={ElastoImage}
-            title="Ames Elasto-Barrier Gray Elastomeric Rubber Roof Coating 5 gal"
-            rate={4}
-            price="$179.99"
-          />
-          <ProductCard
-            image={ElastoImage}
-            title="Ames Elasto-Barrier Gray Elastomeric Rubber Roof Coating 5 gal"
-            rate={4}
-            price="$179.99"
-          />
-          <ProductCard
-            image={ElastoImage}
-            title="Ames Elasto-Barrier Gray Elastomeric Rubber Roof Coating 5 gal"
-            rate={4}
-            price="$179.99"
-          />
-          <ProductCard
-            image={ElastoImage}
-            title="Ames Elasto-Barrier Gray Elastomeric Rubber Roof Coating 5 gal"
-            rate={4}
-            price="$179.99"
-          />
-          <ProductCard
-            image={ElastoImage}
-            title="Ames Elasto-Barrier Gray Elastomeric Rubber Roof Coating 5 gal"
-            rate={4}
-            price="$179.99"
-          />
-          <ProductCard
-            image={ElastoImage}
-            title="Ames Elasto-Barrier Gray Elastomeric Rubber Roof Coating 5 gal"
-            rate={4}
-            price="$179.99"
-          />
-          <ProductCard
-            image={ElastoImage}
-            title="Ames Elasto-Barrier Gray Elastomeric Rubber Roof Coating 5 gal"
-            rate={4}
-            price="$179.99"
-          />
-          <ProductCard
-            image={ElastoImage}
-            title="Ames Elasto-Barrier Gray Elastomeric Rubber Roof Coating 5 gal"
-            rate={4}
-            price="$179.99"
-          />
+          {Array.from({ length: 50 }, (_, i) => {
+            return (
+              <ProductCard
+                key={i}
+                image={ElastoImage}
+                title="Ames Elasto-Barrier Gray Elastomeric Rubber Roof Coating 5 gal"
+                rate={4}
+                price="$179.99"
+              />
+            );
+          })}
         </Box>
       </Box>
     );
-  if (isProducts && isProductDescription)
+
+  if (isProductDescription)
     return <Typography variant="h2">Product description</Typography>;
 
-  return <ChatImage />;
+  if (!isConversation) return <ChatImage />;
+
+  return null;
 };
 
 export default ChatRight;

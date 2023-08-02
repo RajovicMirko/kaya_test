@@ -10,8 +10,8 @@ const components: Components<Omit<Theme, "components">> = {
         return {
           boxShadow: "none",
           backgroundColor: theme.palette.background.chat,
-          borderRadius: "14px",
-          padding: "20px 18px",
+          borderRadius: "18px",
+          padding: "20px",
         };
       },
     },
