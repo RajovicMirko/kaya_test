@@ -20,37 +20,27 @@ export const getChatLeftContentWrapperAnimation = (
   isFullHeight: boolean
 ) => {
   const isFull = isFullscreen || isFullHeight;
+  const inputHeight = document.querySelector(".ai-input")?.clientHeight ?? 0;
 
-  const fullHeight =
-    window.innerHeight -
-    getChatCoordinates(ChatCoordinates.inputHeight) -
-    getChatCoordinates(ChatCoordinates.inputMargin) -
-    getChatCoordinates(ChatCoordinates.inputSubtextHeight);
-
-  const height = isFull ? fullHeight : 460;
+  const height = isFull ? window.innerHeight - inputHeight : 460;
 
   return {
     flexFlow: isFull ? "column-reverse" : "column",
     alignItems: isFull ? "stretch" : "center",
-    minHeight: `${height}px`,
-    maxHeight: `${height}px`,
+    height: `${height}px`,
   };
 };
 
 export const getChatLeftContentWrapperInitial = () => {
   return {
     width: "100%",
+    height: `100vh`,
     flexFlow: "column",
-    minHeight: `460px`,
-    maxHeight: `460px`,
   };
 };
 
 export const ChatLeftContentWrapper = styled(motion.div)(() => {
   return {
-    width: "100%",
-    minHeight: "100vh",
-    maxHeight: "100vh",
     display: "flex",
     justifyContent: "space-between",
     margin: 0,
@@ -64,20 +54,34 @@ ChatLeftContentWrapper.defaultProps = {
 };
 
 export const InputWrapper = styled(Box)(({ theme }) => {
+  const paddingTop = getChatCoordinates(
+    ChatCoordinates.inputWrapperMarginTop
+  ).toPx();
+  const paddingBottom = getChatCoordinates(
+    ChatCoordinates.inputWrapperMarginBottom
+  ).toPx();
+
   return {
     width: "100%",
-    maxWidth: getChatCoordinates(ChatCoordinates.maxWidth).toPx(),
-    height: getChatCoordinates(ChatCoordinates.inputHeight).toPx(),
     display: "flex",
-    flexFlow: "column",
     justifyContent: "center",
-    margin: `${getChatCoordinates(ChatCoordinates.inputMargin).toPx()} 0`,
-    ...theme.mixins.chatInnerComponentPaddingSmall,
+    paddingTop,
+    paddingBottom,
+
     p: {
       alignSelf: "flex-end",
       fontSize: "14px",
       margin: "10px 18px 0 18px",
       color: theme.palette.grey[500],
+    },
+
+    ".container": {
+      width: "100%",
+      maxWidth: getChatCoordinates(ChatCoordinates.maxWidth).toPx(),
+      display: "flex",
+      flexFlow: "column",
+      justifyContent: "center",
+      ...theme.mixins.chatInnerComponentPaddingSmall,
     },
   };
 });

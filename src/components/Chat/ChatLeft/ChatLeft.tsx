@@ -1,5 +1,5 @@
 import SendIcon from "@mui/icons-material/Send";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { KeyboardEventHandler, useEffect, useRef } from "react";
 import InputAI from "src/components/Input/InputAI/InputAI";
 import { IScreenSplitComponentProps } from "src/components/ScreenSplit/ScreenSplit";
@@ -123,15 +123,17 @@ const ChatLeft = ({
         {!isConversation && <ChatDescription />}
       </ChatLeftContentWrapper>
 
-      <InputWrapper>
-        <InputAI
-          inputRef={inputRef}
-          autoFocus
-          placeholder={INPUT_PLACEHOLDER}
-          endAdornment={<SendIcon />}
-          onKeyDown={handleInputKeyDown}
-        />
-        {<Typography>powered by KayaAI</Typography>}
+      <InputWrapper className="ai-input">
+        <Box className="container">
+          <InputAI
+            inputRef={inputRef}
+            autoFocus
+            placeholder={INPUT_PLACEHOLDER}
+            endAdornment={<SendIcon />}
+            onKeyDown={handleInputKeyDown}
+          />
+          {<Typography>powered by KayaAI</Typography>}
+        </Box>
       </InputWrapper>
     </ChatLeftPage>
   );

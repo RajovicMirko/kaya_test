@@ -4,16 +4,14 @@ export const SUBTITLE = "Your AI Prodesk for construction";
 
 export enum ChatCoordinates {
   maxWidth = "maxWidth",
-  inputHeight = "inputHeight",
-  inputMargin = "inputMargin",
-  inputSubtextHeight = "inputSubtextHeight",
+  inputWrapperMarginTop = "inputWrapperMarginTop",
+  inputWrapperMarginBottom = "inputWrapperMarginBottom",
 }
 
 const CHAT_COORDINATES: { [key in ChatCoordinates]: number } = {
   [ChatCoordinates.maxWidth]: 800,
-  [ChatCoordinates.inputHeight]: 84,
-  [ChatCoordinates.inputMargin]: 20,
-  [ChatCoordinates.inputSubtextHeight]: 22,
+  [ChatCoordinates.inputWrapperMarginTop]: 20,
+  [ChatCoordinates.inputWrapperMarginBottom]: 10,
 };
 
 type GetChatCoordinates = {
