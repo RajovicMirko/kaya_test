@@ -37,6 +37,15 @@ export const getChatLeftContentWrapperAnimation = (
   };
 };
 
+export const getChatLeftContentWrapperInitial = () => {
+  return {
+    width: "100%",
+    flexFlow: "column",
+    minHeight: `460px`,
+    maxHeight: `460px`,
+  };
+};
+
 export const ChatLeftContentWrapper = styled(motion.div)(() => {
   return {
     width: "100%",
@@ -67,7 +76,7 @@ export const InputWrapper = styled(Box)(({ theme }) => {
     p: {
       alignSelf: "flex-end",
       fontSize: "14px",
-      margin: "10px 18px 0",
+      margin: "10px 18px 0 18px",
       color: theme.palette.grey[500],
     },
   };

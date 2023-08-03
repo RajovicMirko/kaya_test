@@ -15,6 +15,7 @@ import {
   ChatLeftPage,
   InputWrapper,
   getChatLeftContentWrapperAnimation,
+  getChatLeftContentWrapperInitial,
 } from "./ChatLeft.style";
 
 export type IChatLeft = IScreenSplitComponentProps & {};
@@ -109,6 +110,7 @@ const ChatLeft = ({
   return (
     <ChatLeftPage>
       <ChatLeftContentWrapper
+        initial={getChatLeftContentWrapperInitial()}
         animate={getChatLeftContentWrapperAnimation(
           isFullWidth,
           isConversation && (isProducts || isProductDescription)
@@ -117,11 +119,8 @@ const ChatLeft = ({
           duration: 0.4,
         }}
       >
-        {isConversation ? (
-          <ChatTextList conversation={conversation} />
-        ) : (
-          <ChatDescription />
-        )}
+        {isConversation && <ChatTextList conversation={conversation} />}
+        {!isConversation && <ChatDescription />}
       </ChatLeftContentWrapper>
 
       <InputWrapper>
