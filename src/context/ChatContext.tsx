@@ -28,6 +28,8 @@ export type IProduct = {
 };
 
 export type IChatContext = {
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
   conversation: Array<IConversation>;
   setConversation: Dispatch<SetStateAction<IConversation[]>>;
   products: Array<IProduct>;
@@ -40,6 +42,8 @@ export type IChatContext = {
 };
 
 export const ChatContext = createContext<IChatContext>({
+  isLoading: false,
+  setIsLoading: () => null,
   conversation: [],
   setConversation: () => null,
   products: [],
@@ -64,6 +68,7 @@ const useChat = () => {
 export type IChatProvider = PropsWithChildren & {};
 
 export const ChatProvider = ({ children }: IChatProvider) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [conversation, setConversation] = useState<Array<IConversation>>([]);
   const [products, setProducts] = useState<Array<IProduct>>([]);
   const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null);
@@ -78,6 +83,8 @@ export const ChatProvider = ({ children }: IChatProvider) => {
   );
 
   const provide = {
+    isLoading,
+    setIsLoading,
     conversation,
     setConversation,
     products,

@@ -28,6 +28,8 @@ const ChatLeft = ({
   setFullWidth,
 }: IChatLeft): IChatLeftReturn => {
   const {
+    isLoading,
+    setIsLoading,
     conversation,
     setConversation,
     setProducts,
@@ -42,7 +44,7 @@ const ChatLeft = ({
   const handleInputKeyDown: KeyboardEventHandler<
     HTMLTextAreaElement | HTMLInputElement
   > = (event) => {
-    if (!inputRef?.current) return;
+    if (!inputRef?.current || isLoading) return;
 
     if (event?.code === "Escape") {
       inputRef.current.value = "";
@@ -69,6 +71,7 @@ const ChatLeft = ({
           },
         ];
         setConversation([...tmpConversation]);
+        setIsLoading(true);
 
         setTimeout(() => {
           const newConversation = [...tmpConversation];
@@ -82,6 +85,8 @@ const ChatLeft = ({
               text: `ANSWER ON QUESTION: "${tmpInputValue}"`,
             },
           ]);
+
+          setIsLoading(false);
         }, 2000);
 
         inputRef.current.value = "";
