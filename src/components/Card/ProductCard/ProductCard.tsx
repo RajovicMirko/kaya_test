@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { IProduct } from "src/context/ChatContext";
+import useChat, { IProduct } from "src/context/ChatContext";
 import {
   ProductCardPrice,
   ProductCardRating,
@@ -11,18 +11,22 @@ export type IProductCard = IProduct;
 
 type IProductCardReturn = JSX.Element | null;
 
-const ProductCard = ({
-  image,
-  title,
-  price,
-  rate,
-}: IProductCard): IProductCardReturn => {
+const ProductCard = (product: IProductCard): IProductCardReturn => {
+  const { setSelectedProduct } = useChat();
+
+  const { image, title, price, rate } = product;
+
+  const handleCardClick = () => {
+    setSelectedProduct(product);
+  };
+
   return (
     <motion.div
       whileHover={{
         scale: 1.05,
+        transition: { type: "spring", stiffness: 400, damping: 12 },
       }}
-      transition={{ type: "spring", stiffness: 400, damping: 12 }}
+      onClick={handleCardClick}
     >
       <ProductCardStyled>
         <img src={image} alt="elasto-barier" />

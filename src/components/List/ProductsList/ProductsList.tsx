@@ -1,13 +1,20 @@
 import { Box } from "@mui/material";
+import { motion } from "framer-motion";
+import { useEffect } from "react";
 import ProductCard from "src/components/Card/ProductCard/ProductCard";
+import { IScreenSplitComponentProps } from "src/components/ScreenSplit/ScreenSplit";
 import useChat from "src/context/ChatContext";
 
-export type IProductsList = {};
+export type IProductsList = IScreenSplitComponentProps;
 
 type IProductsListReturn = JSX.Element | null;
 
-const ProductsList = ({}: IProductsList): IProductsListReturn => {
-  const { products } = useChat();
+const ProductsList = ({ setFullWidth }: IProductsList): IProductsListReturn => {
+  const { products, selectedProduct } = useChat();
+
+  useEffect(() => {
+    setFullWidth(!!products?.length && !selectedProduct);
+  }, [products, selectedProduct]);
 
   return (
     <Box
@@ -18,19 +25,30 @@ const ProductsList = ({}: IProductsList): IProductsListReturn => {
         overflowY: "auto",
       }}
     >
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(250px, auto))",
-          gap: "20px",
-          padding: "50px",
-          overflowY: "visible",
+      <motion.div
+        initial={{ height: "100%" }}
+        animate={{
+          opacity: selectedProduct ? 0 : 1,
+          transition: {
+            duration: 0.1,
+            delay: selectedProduct ? 0 : 0.4,
+          },
         }}
       >
-        {products?.map((product) => {
-          return <ProductCard key={product.id} {...product} />;
-        })}
-      </Box>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(250px, auto))",
+            gap: "20px",
+            padding: "50px",
+            overflowY: "visible",
+          }}
+        >
+          {products?.map((product) => {
+            return <ProductCard key={product.id} {...product} />;
+          })}
+        </Box>
+      </motion.div>
     </Box>
   );
 };

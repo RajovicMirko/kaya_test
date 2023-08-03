@@ -9,15 +9,12 @@ import { CSSProperties } from "react";
 import { IToggleMode } from "./style/theme";
 
 declare module "@mui/material/styles" {
-  interface ThemeOptions extends MuiThemeOptions {
+  interface ThemeCustom {
     toggleMode: IToggleMode;
     isDarkMode: boolean;
   }
-
-  interface Theme extends MuiTheme {
-    toggleMode: IToggleMode;
-    isDarkMode: boolean;
-  }
+  interface ThemeOptions extends MuiThemeOptions, ThemeCustom {}
+  interface Theme extends MuiTheme, ThemeCustom {}
   interface TypeBackground extends MuiTypeBackground {
     input: string;
     chat: string;
