@@ -19,15 +19,21 @@ export type IConversation = {
   text: string;
 };
 
-export type IProduct = any;
+export type IProduct = {
+  id: number;
+  image: any;
+  title: string;
+  price: string;
+  rate: number;
+};
 
 export type IChatContext = {
   conversation: Array<IConversation>;
   setConversation: Dispatch<SetStateAction<IConversation[]>>;
   products: Array<IProduct>;
   setProducts: Dispatch<SetStateAction<IProduct[]>>;
-  selectedProduct: object | null;
-  setSelectedProduct: Dispatch<SetStateAction<IProduct>>;
+  selectedProduct: IProduct | null;
+  setSelectedProduct: Dispatch<SetStateAction<IProduct | null>>;
   isConversation: boolean;
   isProducts: boolean;
   isProductDescription: boolean;
@@ -81,7 +87,7 @@ export const ChatProvider = ({ children }: IChatProvider) => {
     isConversation,
     isProducts,
     isProductDescription,
-  };
+  } as IChatContext;
 
   return (
     <ChatContext.Provider value={provide}>{children}</ChatContext.Provider>

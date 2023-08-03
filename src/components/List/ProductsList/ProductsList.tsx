@@ -1,15 +1,18 @@
 import { Box } from "@mui/material";
-import ElastoImage from "src/assets/images/elasto_barier.jpeg";
 import ProductCard from "src/components/Card/ProductCard/ProductCard";
+import useChat from "src/context/ChatContext";
 
 export type IProductsList = {};
 
 type IProductsListReturn = JSX.Element | null;
 
 const ProductsList = ({}: IProductsList): IProductsListReturn => {
+  const { products } = useChat();
+
   return (
     <Box
       sx={{
+        position: "relative",
         height: "100%",
         overflow: "hidden",
         overflowY: "auto",
@@ -24,16 +27,8 @@ const ProductsList = ({}: IProductsList): IProductsListReturn => {
           overflowY: "visible",
         }}
       >
-        {Array.from({ length: 50 }, (_, i) => {
-          return (
-            <ProductCard
-              key={i}
-              image={ElastoImage}
-              title="Ames Elasto-Barrier Gray Elastomeric Rubber Roof Coating 5 gal"
-              rate={4}
-              price="$179.99"
-            />
-          );
+        {products?.map((product) => {
+          return <ProductCard key={product.id} {...product} />;
         })}
       </Box>
     </Box>

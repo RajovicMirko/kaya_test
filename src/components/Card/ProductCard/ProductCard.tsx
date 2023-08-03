@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { IProduct } from "src/context/ChatContext";
 import {
   ProductCardPrice,
   ProductCardRating,
@@ -6,12 +7,7 @@ import {
   ProductCardTitle,
 } from "./ProductCard.style";
 
-export type IProductCard = {
-  image: any;
-  title: string;
-  price: string;
-  rate: number;
-};
+export type IProductCard = IProduct;
 
 type IProductCardReturn = JSX.Element | null;
 

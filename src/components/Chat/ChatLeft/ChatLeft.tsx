@@ -1,6 +1,7 @@
 import SendIcon from "@mui/icons-material/Send";
 import { Box, Typography } from "@mui/material";
 import { KeyboardEventHandler, useEffect, useRef } from "react";
+import ElastoImage from "src/assets/images/elasto_barier.jpeg";
 import InputAI from "src/components/Input/InputAI/InputAI";
 import { IScreenSplitComponentProps } from "src/components/ScreenSplit/ScreenSplit";
 import useChat, {
@@ -89,11 +90,17 @@ const ChatLeft = ({
       }
 
       if (tmpInputValue.includes("products")) {
-        setProducts(["test"]);
-      }
+        setProducts(
+          Array.from({ length: 50 }, (_, i) => ({
+            id: i,
+            image: ElastoImage,
+            title:
+              "Ames Elasto-Barrier Gray Elastomeric Rubber Roof Coating 5 gal",
 
-      if (tmpInputValue.includes("product description")) {
-        setSelectedProduct({ test: "test" });
+            rate: 4,
+            price: "$179.99",
+          }))
+        );
       }
 
       if (tmpInputValue.includes("clear products")) {

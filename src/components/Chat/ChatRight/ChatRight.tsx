@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { AnimatePresence, motion } from "framer-motion";
 import ProductsList from "src/components/List/ProductsList/ProductsList";
 import { IScreenSplitComponentProps } from "src/components/ScreenSplit/ScreenSplit";
 import useChat from "src/context/ChatContext";
@@ -8,15 +8,37 @@ export type IChatRight = IScreenSplitComponentProps & {};
 
 type IChatRightReturn = JSX.Element | null;
 
-const ChatRight = ({}: IChatRight): IChatRightReturn => {
-  const { isProducts, isProductDescription } = useChat();
+const ChatRight = (): IChatRightReturn => {
+  const { isConversation, isProducts } = useChat();
 
-  if (isProducts && !isProductDescription) return <ProductsList />;
+  if (isProducts) {
+    return <ProductsList key="product-list" />;
+  }
 
-  if (isProductDescription)
-    return <Typography variant="h2">Product description</Typography>;
-
-  return <ChatImage />;
+  return (
+    <AnimatePresence>
+      {!isConversation && (
+        <motion.div
+          initial={{
+            width: "100%",
+            height: "100%",
+            opacity: 0,
+          }}
+          animate={{
+            opacity: 1,
+          }}
+          exit={{
+            opacity: 1,
+          }}
+          transition={{
+            duration: 0.4,
+          }}
+        >
+          <ChatImage />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 };
 
 export default ChatRight;
