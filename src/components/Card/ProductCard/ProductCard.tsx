@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import {
   ProductCardPrice,
   ProductCardRating,
@@ -21,15 +22,22 @@ const ProductCard = ({
   rate,
 }: IProductCard): IProductCardReturn => {
   return (
-    <ProductCardStyled>
-      <img src={image} alt="elasto-barier" />
+    <motion.div
+      whileHover={{
+        scale: 1.05,
+      }}
+      transition={{ type: "spring", stiffness: 400, damping: 12 }}
+    >
+      <ProductCardStyled>
+        <img src={image} alt="elasto-barier" />
 
-      <ProductCardTitle>{title}</ProductCardTitle>
+        <ProductCardTitle>{title}</ProductCardTitle>
 
-      <ProductCardRating value={rate} />
+        <ProductCardRating value={rate} />
 
-      <ProductCardPrice variant="body2">{price}</ProductCardPrice>
-    </ProductCardStyled>
+        <ProductCardPrice variant="body2">{price}</ProductCardPrice>
+      </ProductCardStyled>
+    </motion.div>
   );
 };
 
