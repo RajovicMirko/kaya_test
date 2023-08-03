@@ -48,6 +48,12 @@ export const ChatLeftContentWrapper = styled(motion.div)(() => {
   };
 });
 
+ChatLeftContentWrapper.defaultProps = {
+  transition: {
+    duration: 0.6,
+  },
+};
+
 export const InputWrapper = styled(Box)(({ theme }) => {
   return {
     width: "100%",
