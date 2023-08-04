@@ -15,14 +15,17 @@ declare module "@mui/material/styles" {
   }
   interface ThemeOptions extends MuiThemeOptions, ThemeCustom {}
   interface Theme extends MuiTheme, ThemeCustom {}
+
   interface TypeBackground extends MuiTypeBackground {
     input: string;
     chat: string;
   }
+
   interface Mixins extends MuiMixins {
     chatInnerComponentPaddingBig: CSSProperties | undefined;
     chatInnerComponentPaddingSmall: CSSProperties | undefined;
   }
+
   interface Duration extends MuiDuration {
     splitScreen: number;
   }
