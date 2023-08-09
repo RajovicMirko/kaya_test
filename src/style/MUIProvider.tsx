@@ -3,7 +3,7 @@ import { PropsWithChildren, useState } from "react";
 import { MUI_MODE } from "./constants";
 import theme, { IToggleMode } from "./theme";
 
-const MUIProvider = ({ children }: PropsWithChildren) => {
+const MUIProvider = ({ children }: PropsWithChildren): JSX.Element => {
   const [mode, setMode] = useState<PaletteMode>(MUI_MODE.light);
 
   const handleToggleMode: IToggleMode = () => {
